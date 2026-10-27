@@ -1,6 +1,7 @@
 <h1>ExpNo 2 : Implement Depth First Search Traversal of a Graph</h1> 
-<h3>Name: </h3>
-<h3>Register Number:     </h3>
+<h3>Date: 15/10/2026</h3>
+<h3>Name: LOGITHA L </h3>
+<h3>Register Number: 212225040207 </h3>
 <H3>Aim:</H3>
 <p> To Implement Depth First Search Traversal of a Graph using Python 3.</p>
 <h3>Theory:</h3>
@@ -54,6 +55,79 @@ Now, the Stack becomes empty, which means we have visited all the nodes, and our
  <li>If Not Visited, add it to the STACK. Else Call The Function Again Until No more nodes needs to be visited.</li>
 </ol></B>
 
+<h3>Program:</h3>
+
+```
+from collections import defaultdict
+import networkx as nx
+import matplotlib.pyplot as plt
+
+graph = defaultdict(list)
+G = nx.Graph()
+
+edges = [
+    ('A', 'B'), ('A', 'C'),
+    ('B', 'E'), ('B', 'D'),
+    ('C', 'D'), ('C', 'G'),
+    ('D', 'F'), ('F', 'G'),
+    ('F', 'H')
+]
+
+for u, v in edges:
+    graph[u].append(v)
+    graph[v].append(u)
+    G.add_edge(u, v)
+
+# Draw graph like the sample output
+pos = {
+    'A': (0.50, 0.10),
+    'B': (0.32, 0.28),
+    'E': (0.08, 0.22),
+    'D': (0.56, 0.48),
+    'C': (0.70, 0.28),
+    'G': (0.88, 0.46),
+    'F': (0.80, 0.70),
+    'H': (0.92, 0.95)
+}
+
+plt.figure(figsize=(7, 5))
+ax = plt.gca()
+
+nx.draw_networkx_nodes(
+    G, pos, node_color='lightblue', node_size=2000, ax=ax
+)
+nx.draw_networkx_edges(
+    G, pos, edge_color='red', width=2, ax=ax
+)
+nx.draw_networkx_labels(G, pos, font_size=12, ax=ax)
+
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1.05)
+ax.set_xticks([])
+ax.set_yticks([])
+plt.show()
+
+# Print adjacency list
+print(graph)
+
+# Depth First Search
+def dfs(graph, start, visited, path):
+    visited[start] = True
+    path.append(start)
+
+    for neighbour in graph[start]:
+        if not visited[neighbour]:
+            dfs(graph, neighbour, visited, path)
+
+    return path
+
+start = input("Enter starting node: ")
+visited = defaultdict(bool)
+path = dfs(graph, start, visited, []) if start in graph else []
+
+print("Depth First Search:")
+print(path)
+
 <hr>
 <h3>Sample Input</h3>
 <hr>
@@ -72,6 +146,8 @@ F H <BR>
 <hr>
 ['A', 'B', 'E', 'D', 'C', 'G', 'F', 'H']
 
+```
+
 <hr>
 
 <hr>
@@ -87,6 +163,10 @@ F H <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
+
+<h3>Output:</h3>
+
+<img width="1022" height="512" alt="image" src="https://github.com/user-attachments/assets/703ea0ee-00a4-4070-ad14-26651d9967af" />
 
 <hr>
 <h3>Result:</h3>
